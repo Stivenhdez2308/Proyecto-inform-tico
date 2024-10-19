@@ -96,7 +96,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Más rutas para actualizar y eliminar doctores...
+// Más rutas que se le pueden agregar como puede ser para actualizar y eliminar doctores, etc.
 
 // Verificar código de autorización
 router.post('/verificar-codigo', (req, res) => {

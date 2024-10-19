@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 
-// Conectar a MongoDB (sin opciones obsoletas)
+// Conectar a MongoDB
 mongoose.connect('mongodb://localhost:27017/ecografia4d')
 .then(() => console.log('Conectado a MongoDB'))
 .catch(err => console.error('Error al conectar a MongoDB:', err));
