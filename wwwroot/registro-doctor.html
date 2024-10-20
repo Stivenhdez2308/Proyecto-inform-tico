@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso para Doctores - Ecografía 4D</title>
+    <title>Registro de Doctor - Ecografía 4D</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="access-page doctor-access">
     <header>
@@ -30,21 +30,24 @@
 
     <main>
         <section class="access-form">
-            <h2>Acceso para Doctores</h2>
-            <form id="loginForm">
+            <h2>Registro de Doctor</h2>
+            <form id="registroForm">
                 <div class="form-group">
-                    <label for="email"><i class="fas fa-user-md"></i> Email</label>
+                    <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit">Iniciar Sesión</button>
+                <button type="submit">Registrarse</button>
             </form>
             <div class="additional-links">
-                <a href="#">¿Olvidó su contraseña?</a>
-                <a href="registro-doctor.html">Registrarse como doctor</a>
+                <a href="acceso-doctor.html">¿Ya tienes una cuenta? Inicia sesión</a>
             </div>
         </section>
     </main>
@@ -61,5 +64,38 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registroForm = document.getElementById('registroForm');
+            if (registroForm) {
+                registroForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const nombre = document.getElementById('nombre').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+
+                    try {
+                        const response = await fetch('/registrar-doctor', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ nombre, email, password }),
+                        });
+
+                        const data = await response.json();
+                        alert(data.mensaje);
+                        if (response.ok) {
+                            // Limpiar el formulario si el registro fue exitoso
+                            registroForm.reset();
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error en el registro: ' + error.message);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
